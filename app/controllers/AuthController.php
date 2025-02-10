@@ -8,6 +8,7 @@ use App\Core\Auth;
 use App\Core\Session;
 use App\Core\Security;
 use App\Models\Article;
+use App\Config\Twig;
 
 class AuthController extends Controller
 {
