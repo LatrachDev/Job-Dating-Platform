@@ -3,7 +3,7 @@
         'name' => 'your-name/mvc-framework',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '088282e5e65128167071940f1a3b8d4c2e2afb1c',
+        'reference' => '784e1acd043b32421a87cf6c347a840ab7ae1d23',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -262,6 +262,15 @@
                 0 => '2.3|3.0',
             ),
         ),
+        'twig/twig' => array(
+            'pretty_version' => 'v3.7.0',
+            'version' => '3.7.0.0',
+            'reference' => '5cf942bbab3df42afa918caeba947f1b690af64b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../twig/twig',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'vlucas/phpdotenv' => array(
             'pretty_version' => 'v5.6.1',
             'version' => '5.6.1.0',
@@ -283,7 +292,7 @@
         'your-name/mvc-framework' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '088282e5e65128167071940f1a3b8d4c2e2afb1c',
+            'reference' => '784e1acd043b32421a87cf6c347a840ab7ae1d23',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
