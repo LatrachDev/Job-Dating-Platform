@@ -940,24 +940,6 @@
 											"height": 13,
 											"text": "-updated_at",
 											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLAttributeView",
-											"_id": "AAAAAAGU8Cef2iV/LlM=",
-											"_parent": {
-												"$ref": "AAAAAAGU8CX2SyUm3jk="
-											},
-											"model": {
-												"$ref": "AAAAAAGU8Cef1CV8opE="
-											},
-											"font": "Arial;13;0",
-											"parentStyle": true,
-											"left": 653,
-											"top": 403,
-											"width": 159,
-											"height": 13,
-											"text": "-deleted_at",
-											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
@@ -965,7 +947,7 @@
 									"left": 648,
 									"top": 321,
 									"width": 169,
-									"height": 100
+									"height": 85
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -989,7 +971,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 653,
-											"top": 426,
+											"top": 411,
 											"width": 159,
 											"height": 13,
 											"text": "+create()",
@@ -1007,7 +989,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 653,
-											"top": 441,
+											"top": 426,
 											"width": 159,
 											"height": 13,
 											"text": "+delete()",
@@ -1025,7 +1007,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 653,
-											"top": 456,
+											"top": 441,
 											"width": 159,
 											"height": 13,
 											"text": "+update()",
@@ -1043,7 +1025,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 653,
-											"top": 471,
+											"top": 456,
 											"width": 159,
 											"height": 13,
 											"text": "+restore()",
@@ -1053,7 +1035,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": true,
 									"left": 648,
-									"top": 421,
+									"top": 406,
 									"width": 169,
 									"height": 68
 								},
@@ -2067,15 +2049,6 @@
 							},
 							"name": "updated_at",
 							"visibility": "private"
-						},
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAGU8Cef1CV8opE=",
-							"_parent": {
-								"$ref": "AAAAAAGU8CX2SiUeIsY="
-							},
-							"name": "deleted_at",
-							"visibility": "private"
 						}
 					],
 					"operations": [
@@ -2120,6 +2093,43 @@
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
 					"name": "Class1"
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGU8FwHNy+wBdM=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Deleted Announcement",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGU8FxefTBq7WM=",
+							"_parent": {
+								"$ref": "AAAAAAGU8FwHNy+wBdM="
+							},
+							"name": "title",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGU8FyBHjDAzDE=",
+							"_parent": {
+								"$ref": "AAAAAAGU8FwHNy+wBdM="
+							},
+							"name": "deleted_at",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGU8FzLRDF2Cac=",
+							"_parent": {
+								"$ref": "AAAAAAGU8FwHNy+wBdM="
+							},
+							"name": "date",
+							"visibility": "private"
+						}
+					]
 				}
 			]
 		}
