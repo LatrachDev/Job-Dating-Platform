@@ -33,7 +33,7 @@ class AnnouncementController extends Controller
     {
         $announcement = Announcement::with('company')->find($id);
         if (!$announcement) {
-            $this->session->setFlash('error', 'Announcement not found');
+            $this->session->set('error', 'Announcement not found');
             header('Location: /user/announcements');
             exit();
         }
@@ -44,7 +44,7 @@ class AnnouncementController extends Controller
     {
         // Only admin or company users can create announcements
         if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
-            $this->session->setFlash('error', 'Unauthorized access');
+            $this->session->set('error', 'Unauthorized access');
             header('Location: /logout');
             exit();
         }
@@ -54,12 +54,27 @@ class AnnouncementController extends Controller
         return $this->view('admin/announcements/index', ['announcements' => $announcements]);
     }
 
+    public function create()
+    {
+        // Only admin or company users can create announcements
+        if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
+            $this->session->set('error', 'Unauthorized access');
+            header('Location: /logout');
+            exit();
+        }
+
+        // Get all companies for the dropdown
+        $companies = Company::all();
+        
+        return $this->view('admin/announcements/create', ['companies' => $companies]);
+    }
+
     public function store()
     {
         // Only admin or company users can create announcements
         if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
-            $this->session->setFlash('error', 'Unauthorized access');
-            header('Location: /user/announcements');
+            $this->session->set('error', 'Unauthorized access');
+            header('Location: /logout');
             exit();
         }
 
@@ -69,8 +84,8 @@ class AnnouncementController extends Controller
         $company_id = $_POST['company_id'] ?? null;
 
         if (empty($title) || empty($description) || empty($company_id)) {
-            $this->session->setFlash('error', 'All fields are required');
-            header('Location: /announcements/create');
+            $this->session->set('error', 'Tous les champs sont obligatoires');
+            header('Location: /admin/announcements/create');
             exit();
         }
 
@@ -81,8 +96,8 @@ class AnnouncementController extends Controller
         $announcement->company_id = $company_id;
         $announcement->save();
 
-        $this->session->setFlash('success', 'Announcement created successfully');
-        header('Location: /user/announcements');
+        $this->session->set('success', 'Annonce créée avec succès');
+        header('Location: /admin/announcements');
         exit();
     }
 
@@ -90,14 +105,14 @@ class AnnouncementController extends Controller
     {
         // Only admin or company users can edit announcements
         if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
-            $this->session->setFlash('error', 'Unauthorized access');
+            $this->session->set('error', 'Unauthorized access');
             header('Location: /user/announcements');
             exit();
         }
 
         $announcement = Announcement::find($id);
         if (!$announcement) {
-            $this->session->setFlash('error', 'Announcement not found');
+            $this->session->set('error', 'Announcement not found');
             header('Location: /user/announcements');
             exit();
         }
@@ -113,14 +128,14 @@ class AnnouncementController extends Controller
     {
         // Only admin or company users can update announcements
         if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
-            $this->session->setFlash('error', 'Unauthorized access');
+            $this->session->set('error', 'Unauthorized access');
             header('Location: /user/announcements');
             exit();
         }
 
         $announcement = Announcement::find($id);
         if (!$announcement) {
-            $this->session->setFlash('error', 'Announcement not found');
+            $this->session->set('error', 'Announcement not found');
             header('Location: /user/announcements');
             exit();
         }
@@ -131,7 +146,7 @@ class AnnouncementController extends Controller
         $company_id = $_POST['company_id'] ?? null;
 
         if (empty($title) || empty($description) || empty($company_id)) {
-            $this->session->setFlash('error', 'All fields are required');
+            $this->session->set('error', 'All fields are required');
             header("Location: /announcements/edit/$id");
             exit();
         }
@@ -142,7 +157,7 @@ class AnnouncementController extends Controller
         $announcement->company_id = $company_id;
         $announcement->save();
 
-        $this->session->setFlash('success', 'Announcement updated successfully');
+        $this->session->set('success', 'Announcement updated successfully');
         header('Location: /user/announcements');
         exit();
     }
@@ -151,7 +166,7 @@ class AnnouncementController extends Controller
     {
         // Only admin or company users can delete announcements
         if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
-            $this->session->setFlash('error', 'Unauthorized access');
+            $this->session->set('error', 'Unauthorized access');
             header('Location: /user/announcements');
             exit();
         }
@@ -159,9 +174,9 @@ class AnnouncementController extends Controller
         $announcement = Announcement::find($id);
         if ($announcement) {
             $announcement->delete();
-            $this->session->setFlash('success', 'Announcement deleted successfully');
+            $this->session->set('success', 'Announcement deleted successfully');
         } else {
-            $this->session->setFlash('error', 'Announcement not found');
+            $this->session->set('error', 'Announcement not found');
         }
 
         header('Location: /user/announcements');

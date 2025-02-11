@@ -14,6 +14,23 @@
     <?php include __DIR__ . '/../components/sidebar.php'; ?>
 
     <div class="ml-64 mt-16 p-6"> 
+
+        <!--error and success messages-->
+        <?php if(isset($_SESSION['success'])): ?>
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span class="block sm:inline"><?= $_SESSION['success'] ?></span>
+            </div>
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION['error'])): ?>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span class="block sm:inline"><?= $_SESSION['error'] ?></span>
+            </div>
+            <?php unset($_SESSION['error']); ?>
+
+        <?php endif; ?>
+
         <div class="flex justify-between items-center mb-6">
             <div>
                 <h1 class="text-2xl font-semibold text-gray-900">Gestion des Annonces</h1>

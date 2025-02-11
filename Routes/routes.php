@@ -61,6 +61,16 @@ return [
         'uri' => '/admin/announcements',
         'handler' => 'AnnouncementController@AdminAnnouncementsShow'
     ],
+    [
+        'method' => 'GET',
+        'uri' => '/admin/announcements/create',
+        'handler' => 'AnnouncementController@create'
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/admin/announcements/store',
+        'handler' => 'AnnouncementController@store'
+    ],
 
     // User Routes
     [
