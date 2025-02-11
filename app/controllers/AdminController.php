@@ -34,7 +34,7 @@ class AdminController extends Controller
 
     public function companies()
     {
-        return $this->view('admin/companies');
+        return $this->view('admin/companies/companies');
     }
 
     public function articles()

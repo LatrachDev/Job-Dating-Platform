@@ -1,8 +1,8 @@
 <?php 
 $currentPage = 'companies';
-include_once 'components/header.php';
-include_once 'components/navbar.php';
-include_once 'components/sidebar.php';
+include_once __DIR__ . '/../components/header.php';
+include_once __DIR__ . '/../components/navbar.php';
+include_once __DIR__ . '/../components/sidebar.php';
 ?>
 
 <!-- Main Content -->
