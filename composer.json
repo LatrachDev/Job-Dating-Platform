@@ -17,6 +17,6 @@
         "illuminate/database": "^10.48",
         "illuminate/events": "^10.48",
         "nikic/fast-route": "^1.3",
-        "twig/twig": "3.7"
+        "twig/twig": "^3.0"
     }
 }
