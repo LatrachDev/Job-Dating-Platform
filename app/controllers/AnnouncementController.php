@@ -37,7 +37,7 @@ class AnnouncementController extends Controller
             header('Location: /user/announcements');
             exit();
         }
-        return $this->view('announcements/show', ['announcement' => $announcement]);
+        return $this->view('user/show', ['announcement' => $announcement]);
     }
 
     public function create()
