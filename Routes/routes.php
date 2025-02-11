@@ -75,22 +75,37 @@ return [
     // User Routes
     [
         'method' => 'GET',
-        'uri' => '/user/index',
-        'handler' => 'UserController@index'
+        'uri' => '/user/announcements',
+        'handler' => 'AnnouncementController@index'
     ],
+    // [
+    //     'method' => 'GET',
+    //     'uri' => '/announcements/create',
+    //     'handler' => 'AnnouncementController@create'
+    // ],
+    // [
+    //     'method' => 'POST',
+    //     'uri' => '/announcements',
+    //     'handler' => 'AnnouncementController@store'
+    // ],
     [
         'method' => 'GET',
-        'uri' => '/user/articles',
-        'handler' => 'UserController@articles'
+        'uri' => '/announcements/{id}',
+        'handler' => 'AnnouncementController@show'
     ],
-    [
-        'method' => 'GET',
-        'uri' => '/user/articles/create',
-        'handler' => 'UserController@create'
-    ],
-    [
-        'method' => 'POST',
-        'uri' => '/user/articles',
-        'handler' => 'UserController@store'
-    ]
+    // [
+    //     'method' => 'GET',
+    //     'uri' => '/announcements/{id}/edit',
+    //     'handler' => 'AnnouncementController@edit'
+    // ],
+    // [
+    //     'method' => 'POST',
+    //     'uri' => '/announcements/{id}',
+    //     'handler' => 'AnnouncementController@update'
+    // ],
+    // [
+    //     'method' => 'POST',
+    //     'uri' => '/announcements/{id}/delete',
+    //     'handler' => 'AnnouncementController@delete'
+    // ]
 ]; 
