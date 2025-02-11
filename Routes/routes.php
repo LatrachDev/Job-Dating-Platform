@@ -98,19 +98,29 @@ return [
         'uri' => '/announcements/{id}',
         'handler' => 'AnnouncementController@show'
     ],
-    // [
-    //     'method' => 'GET',
-    //     'uri' => '/announcements/{id}/edit',
-    //     'handler' => 'AnnouncementController@edit'
-    // ],
-    // [
-    //     'method' => 'POST',
-    //     'uri' => '/announcements/{id}',
-    //     'handler' => 'AnnouncementController@update'
-    // ],
-    // [
-    //     'method' => 'POST',
-    //     'uri' => '/announcements/{id}/delete',
-    //     'handler' => 'AnnouncementController@delete'
-    // ]
+    [
+        'method' => 'GET',
+        'uri' => '/user/articles/create',
+        'handler' => 'UserController@create'
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/user/articles',
+        'handler' => 'UserController@store'
+    ],
+
+
+    // Routes pour la gestion des utilisateurs
+    [
+        'method' => 'GET',
+        'uri' => '/admin/users',
+        'handler' => 'Admin\UserManagementController@index'
+    ],
+
+    [
+        'method' => 'DELETE',
+        'uri' => '/admin/users/{id}',
+        'handler' => 'Admin\UserManagementController@delete'
+    ]
+    
 ]; 
