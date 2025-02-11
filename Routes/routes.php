@@ -53,6 +53,11 @@ return [
     ],
     [
         'method' => 'GET',
+        'uri' => '/admin/companies',
+        'handler' => 'AdminController@companies'
+    ],
+    [
+        'method' => 'GET',
         'uri' => '/admin/articles/create',
         'handler' => 'AdminController@create'
     ],

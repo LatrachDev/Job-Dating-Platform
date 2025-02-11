@@ -32,6 +32,11 @@ class AdminController extends Controller
         return $this->view('admin/dashboard');
     }
 
+    public function companies()
+    {
+        return $this->view('admin/companies');
+    }
+
     public function articles()
     {
         $articles = Article::all();
