@@ -14,7 +14,7 @@ include_once 'components/sidebar.php';
         </header>
 
         <!-- Cartes statistiques -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="flex items-center justify-between">
                     <div>
@@ -42,16 +42,6 @@ include_once 'components/sidebar.php';
                         <h3 class="text-3xl font-bold">150</h3>
                     </div>
                     <i class="fas fa-users text-3xl text-purple-500"></i>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500">Sessions Job Dating</p>
-                        <h3 class="text-3xl font-bold">8</h3>
-                    </div>
-                    <i class="fas fa-calendar-alt text-3xl text-orange-500"></i>
                 </div>
             </div>
         </div>
@@ -85,4 +75,6 @@ include_once 'components/sidebar.php';
         </div>
     </div>
 </main>
+
+
 
