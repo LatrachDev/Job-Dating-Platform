@@ -33,4 +33,3 @@ class HomeController extends Controller
         return $this->view('home/articles', ['articles' => $articles]);
     }
 }
-

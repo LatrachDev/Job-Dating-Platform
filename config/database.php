@@ -30,6 +30,7 @@ class Database {
             $capsule->getConnection()->getPdo();
 
             echo "✅ Connexion réussie à PostgreSQL via Eloquent!";
+            
         } catch (Exception $e) {
             die("❌ Erreur de connexion : " . $e->getMessage());
         }
