@@ -92,5 +92,20 @@ return [
         'method' => 'POST',
         'uri' => '/user/articles',
         'handler' => 'UserController@store'
+    ],
+
+
+    // Routes pour la gestion des utilisateurs
+    [
+        'method' => 'GET',
+        'uri' => '/admin/users',
+        'handler' => 'Admin\UserManagementController@index'
+    ],
+
+    [
+        'method' => 'DELETE',
+        'uri' => '/admin/users/{id}',
+        'handler' => 'Admin\UserManagementController@delete'
     ]
+    
 ]; 
