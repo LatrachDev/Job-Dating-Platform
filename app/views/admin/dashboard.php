@@ -86,4 +86,3 @@ include_once 'components/sidebar.php';
     </div>
 </main>
 
-<?php include_once 'components/footer.php'; ?>
