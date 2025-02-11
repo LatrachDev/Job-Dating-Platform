@@ -1,46 +1,80 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Admin Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-    <!-- Admin Navigation -->
-    <nav class="bg-gray-800 text-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-xl font-bold">Admin Panel</span>
+<?php 
+$currentPage = 'dashboard';
+include_once 'components/header.php';
+include_once 'components/navbar.php';
+include_once 'components/sidebar.php';
+?>
+
+<!-- Contenu principal -->
+<main class="ml-64 mt-16 p-6">
+    <div class="container mx-auto">
+        <!-- En-tête de la page -->
+        <header class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Tableau de bord</h1>
+        </header>
+
+        <!-- Cartes statistiques -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500">Total Entreprises</p>
+                        <h3 class="text-3xl font-bold">12</h3>
+                    </div>
+                    <i class="fas fa-building text-3xl text-blue-500"></i>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="/admin/dashboard" class="px-3 py-2 rounded-md hover:bg-gray-700">Dashboard</a>
-                    <a href="/admin/articles" class="px-3 py-2 rounded-md hover:bg-gray-700">Articles</a>
-                    <a href="/admin/users" class="px-3 py-2 rounded-md hover:bg-gray-700">Users</a>
-                    <a href="/logout" class="px-3 py-2 bg-red-600 rounded-md hover:bg-red-700">Logout</a>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500">Annonces Actives</p>
+                        <h3 class="text-3xl font-bold">25</h3>
+                    </div>
+                    <i class="fas fa-bullhorn text-3xl text-green-500"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500">Total Utilisateurs</p>
+                        <h3 class="text-3xl font-bold">150</h3>
+                    </div>
+                    <i class="fas fa-users text-3xl text-purple-500"></i>
                 </div>
             </div>
         </div>
-    </nav>
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 py-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Stats Cards -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-xl font-semibold mb-2">Total Users</h3>
-                <p class="text-3xl font-bold text-blue-600">5</p>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-xl font-semibold mb-2">Total Articles</h3>
-                <p class="text-3xl font-bold text-green-600">10</p>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-xl font-semibold mb-2">New Users Today</h3>
-                <p class="text-3xl font-bold text-purple-600">2</p>
+        <!-- Dernières activités -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="p-6">
+                <h2 class="text-xl font-bold mb-4">Dernières Activités</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Détails</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4">2024-03-20</td>
+                                <td class="px-6 py-4">Nouvelle entreprise ajoutée</td>
+                                <td class="px-6 py-4">Microsoft Maroc</td>
+                                <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-800 rounded">Complété</span></td>
+                            </tr>
+                            <!-- Ajoutez plus de lignes selon vos besoins -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+</main>
+
+
+
