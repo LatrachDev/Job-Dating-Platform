@@ -58,23 +58,8 @@ return [
     ],
     [
         'method' => 'GET',
-        'uri' => '/admin/articles/create',
-        'handler' => 'AdminController@create'
-    ],
-    [
-        'method' => 'POST',
-        'uri' => '/admin/articles',
-        'handler' => 'AdminController@store'
-    ],
-    [
-        'method' => 'POST',
-        'uri' => '/admin/articles/delete',
-        'handler' => 'AdminController@delete'
-    ],
-    [
-        'method' => 'POST',
-        'uri' => '/admin/delete-article',
-        'handler' => 'AdminController@deleteArticle'
+        'uri' => '/admin/announcements',
+        'handler' => 'AnnouncementController@AdminAnnouncementsShow'
     ],
 
     // User Routes

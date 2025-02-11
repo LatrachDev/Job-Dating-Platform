@@ -40,17 +40,18 @@ class AnnouncementController extends Controller
         return $this->view('user/show', ['announcement' => $announcement]);
     }
 
-    public function create()
+    public function AdminAnnouncementsShow()
     {
         // Only admin or company users can create announcements
         if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
             $this->session->setFlash('error', 'Unauthorized access');
-            header('Location: /user/announcements');
+            header('Location: /logout');
             exit();
         }
 
-        $companies = Company::all();
-        return $this->view('announcements/create', ['companies' => $companies]);
+        // Get all announcements with their related companies
+        $announcements = Announcement::with('company')->get();
+        return $this->view('admin/announcements/index', ['announcements' => $announcements]);
     }
 
     public function store()
