@@ -118,11 +118,11 @@
                                            class="text-blue-600 hover:text-blue-900">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="/admin/announcements/<?= $announcement->id ?>/edit" 
+                                        <a href="/admin/announcements/edit/<?= $announcement->id ?>" 
                                            class="text-indigo-600 hover:text-indigo-900">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="/admin/announcements/<?= $announcement->id ?>/delete" 
+                                        <form action="/admin/announcements/delete/<?= $announcement->id ?>" 
                                               method="POST" 
                                               class="inline-block"
                                               onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce?');">
