@@ -36,7 +36,11 @@
         <div class="flex items-center space-x-3">
             <span class="text-2xl font-bold text-blue-900">JobDating</span>
         </div>
-        <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300 hover-scale">Login</button>
+        <a href="/login">
+    <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300 hover-scale">
+        Login
+    </button>
+</a>
     </nav>
 
     <!-- Hero Section -->
@@ -44,7 +48,12 @@
         <div class="text-center mb-8">
             <h1 class="text-6xl font-bold text-blue-900 mb-6">Find Your Dream Job or Talent</h1>
             <p class="text-xl text-blue-700 mb-8">Join Job Dating to connect with top companies and candidates effortlessly.</p>
-            <button class="bg-blue-500 text-white px-8 py-3 rounded-lg hover:bg-blue-600 transition duration-300 hover-scale">Get Started</button>
+            
+            <a href="/register">
+                <button class="bg-blue-500 text-white px-8 py-3 rounded-lg hover:bg-blue-600 transition duration-300 hover-scale">
+                    Get Started
+                </button>
+            </a>
         </div>
         <!-- Full-Width Hero Image -->
         <div class="w-full h-96 overflow-hidden relative">
@@ -82,7 +91,11 @@
     <div class="gradient-bg py-16 text-white text-center">
         <h2 class="text-4xl font-bold mb-6">Ready to Transform Your Career or Hiring Process?</h2>
         <p class="text-xl mb-8">Join Job Dating today and take the first step towards success.</p>
-        <button class="bg-white text-blue-500 px-8 py-3 rounded-lg hover:bg-blue-50 transition duration-300 hover-scale">Sign Up Now</button>
+        <a href="/register">
+    <button class="bg-white text-blue-500 px-8 py-3 rounded-lg hover:bg-blue-50 transition duration-300 hover-scale">
+        Sign Up Now
+    </button>
+    </a>
     </div>
 
     <!-- Footer -->
