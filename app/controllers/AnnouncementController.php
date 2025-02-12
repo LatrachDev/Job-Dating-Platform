@@ -129,14 +129,14 @@ class AnnouncementController extends Controller
         // Only admin or company users can update announcements
         if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
             $this->session->set('error', 'Unauthorized access');
-            header('Location: /user/announcements');
+            header('Location: /admin/announcements');
             exit();
         }
 
         $announcement = Announcement::find($id);
         if (!$announcement) {
             $this->session->set('error', 'Announcement not found');
-            header('Location: /user/announcements');
+            header('Location: /admin/announcements');
             exit();
         }
 
@@ -158,7 +158,7 @@ class AnnouncementController extends Controller
         $announcement->save();
 
         $this->session->set('success', 'Announcement updated successfully');
-        header('Location: /user/announcements');
+        header('Location: /admin/announcements');
         exit();
     }
 
@@ -167,7 +167,7 @@ class AnnouncementController extends Controller
         // Only admin or company users can delete announcements
         if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
             $this->session->set('error', 'Unauthorized access');
-            header('Location: /user/announcements');
+            header('Location: /admin/announcements');
             exit();
         }
 
@@ -179,7 +179,7 @@ class AnnouncementController extends Controller
             $this->session->set('error', 'Announcement not found');
         }
 
-        header('Location: /user/announcements');
+        header('Location: /admin/announcements');
         exit();
     }
 }
