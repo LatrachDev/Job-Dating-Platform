@@ -31,8 +31,13 @@
         public function index() 
         {
             $companies = Company::all(); 
+
+            // echo '<pre>';
+            // var_dump($companies);
+            // echo '</pre>';
+            // die();
             
-            require_once __DIR__ . '/../views/admin/companies/companies.php';
+            return $this->view('admin/companies/companies', ['companies' => $companies]);
         }
         
         public function create()

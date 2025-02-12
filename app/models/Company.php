@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Config\Database;
 use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
@@ -12,6 +13,8 @@ class Company extends Model
         'description',
         'contact_info'
     ];
+
+
 
     // Relationship: A company has many announcements
     public function announcements()

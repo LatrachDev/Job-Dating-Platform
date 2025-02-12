@@ -44,29 +44,32 @@ include_once __DIR__ . '/../components/sidebar.php';
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <?php if (!empty($companies) && is_array($companies)): ?>
-                        <?php foreach($companies as $company): ?>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap"><?= htmlspecialchars($company->name) ?></td>
-                                <td class="px-6 py-4"><?= htmlspecialchars(substr($company->description, 0, 100)) ?>...</td>
-                                <td class="px-6 py-4"><?= htmlspecialchars($company->contact_info) ?></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="/admin/companies/edit/<?= $company->id ?>" class="text-blue-600 hover:text-blue-900 mr-4">
-                                        <i class="fas fa-edit"></i> Modifier
-                                    </a>
-                                    <form action="/admin/companies/delete/<?= $company->id ?>" method="POST" class="inline">
-                                        <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette entreprise ?')">
-                                            <i class="fas fa-trash"></i> Supprimer
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
+                <?php if (!empty($companies)): ?>
+                    <?php foreach($companies as $company): ?>
                         <tr>
-                            <td colspan="4" class="px-6 py-4 text-center text-gray-500">Aucune entreprise trouvée.</td>
+                            <td class="px-6 py-4 whitespace-nowrap"><?= htmlspecialchars($company->name) ?></td>
+                            <td class="px-6 py-4"><?= htmlspecialchars(substr($company->description, 0, 100)) ?>...</td>
+                            <td class="px-6 py-4"><?= htmlspecialchars($company->contact_info) ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <a href="/admin/companies/edit/<?= $company->id ?>" class="text-blue-600 hover:text-blue-900 mr-4">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <form action="/admin/companies/delete/<?= $company->id ?>" method="POST" class="inline">
+                                    <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette entreprise ?')">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
-                    <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4" class="px-6 py-4 text-center text-gray-500">Aucune entreprise trouvée.</td>
+                    </tr>
+                <?php endif; ?>
+
+
+                
                 </tbody>
 
             </table>

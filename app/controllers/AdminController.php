@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Core\Auth;
 use App\Core\Session;
 use App\Core\Security;
+use App\Models\Company;
 use DateTime;
 
 class AdminController extends Controller
@@ -75,7 +76,8 @@ class AdminController extends Controller
 
     public function companies()
     {
-        return $this->view('admin/companies/companies');
+        $companies = Company::all();
+        return $this->view('admin/companies/companies', ['companies' => $companies]);
     }
 
     public function articles()
