@@ -33,7 +33,7 @@
             <?php endif; ?>
 
             <div class="bg-white shadow rounded-lg">
-                <form action="/admin/announcements/<?= $announcement->id ?>/update" method="POST" class="space-y-6 p-6">
+                <form action="/admin/announcements/update/<?= $announcement->id ?>" method="POST" class="space-y-6 p-6">
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700">Titre de l'annonce</label>
                         <input type="text" name="title" id="title" required
