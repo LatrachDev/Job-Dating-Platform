@@ -103,6 +103,21 @@ return [
         'uri' => '/admin/announcements/store',
         'handler' => 'AnnouncementController@store'
     ],
+    [
+        'method' => 'GET',
+        'uri' => '/admin/announcements/edit/{id}',
+        'handler' => 'AnnouncementController@edit'
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/admin/announcements/update/{id}',
+        'handler' => 'AnnouncementController@update'
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/admin/announcements/delete/{id}',
+        'handler' => 'AnnouncementController@delete'
+    ],
 
     // User Routes
     [
