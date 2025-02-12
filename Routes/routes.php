@@ -52,16 +52,26 @@ return [
         'handler' => 'AdminController@articles'
     ],
     // Companies
+    // [
+    //     'method' => 'POST',
+    //     'uri' => '/admin/companies',
+    //     'handler' => 'CompanyController@index'
+    // ],
     [
         'method' => 'GET',
         'uri' => '/admin/companies',
-        'handler' => 'AdminController@companies'
+        'handler' => 'CompanyController@index'
     ],
     [
         'method' => 'GET',
         'uri' => '/admin/companies/create',
         'handler' => 'CompanyController@create'
     ], 
+    [
+        'method' => 'POST',
+        'uri' => '/admin/companies/store',
+        'handler' => 'CompanyController@store'
+    ],
     [
         'method' => 'GET',
         'uri' => '/admin/companies/edit/{id}',
