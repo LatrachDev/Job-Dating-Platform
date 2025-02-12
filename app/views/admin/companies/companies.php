@@ -11,7 +11,7 @@ include_once __DIR__ . '/../components/sidebar.php';
         <!-- Page Header -->
         <header class="mb-6 flex justify-between items-center">
             <h1 class="text-3xl font-bold text-gray-800">Gestion des Entreprises</h1>
-            <a href="add_company.php" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center">
+            <a href="/create" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center">
                 <i class="fas fa-plus-circle mr-2"></i>
                 Nouvelle Entreprise
             </a>
@@ -62,7 +62,6 @@ include_once __DIR__ . '/../components/sidebar.php';
                                 </td>
                             </tr>
 
-                            <!-- More Rows... -->
                             <tr>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">

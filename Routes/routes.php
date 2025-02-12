@@ -51,11 +51,33 @@ return [
         'uri' => '/admin/articles',
         'handler' => 'AdminController@articles'
     ],
+    // Companies
     [
         'method' => 'GET',
         'uri' => '/admin/companies',
         'handler' => 'AdminController@companies'
     ],
+    [
+        'method' => 'GET',
+        'uri' => '/admin/companies/create',
+        'handler' => 'CompanyController@create'
+    ], 
+    [
+        'method' => 'GET',
+        'uri' => '/admin/companies/edit/{id}',
+        'handler' => 'CompanyController@edit'
+    ], 
+    [
+        'method' => 'POST',
+        'uri' => '/admin/companies/update/{id}',
+        'handler' => 'CompanyController@update'
+    ], 
+    [
+        'method' => 'POST',
+        'uri' => '/admin/companies/delete/{id}',
+        'handler' => 'CompanyController@delete'
+    ], 
+    //Announcement
     [
         'method' => 'GET',
         'uri' => '/admin/announcements',
