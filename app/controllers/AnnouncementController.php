@@ -173,6 +173,7 @@ class AnnouncementController extends Controller
 
         $announcement = Announcement::find($id);
         if ($announcement) {
+            // The delete() method will now perform a soft delete
             $announcement->delete();
             $this->session->set('success', 'Announcement deleted successfully');
         } else {
