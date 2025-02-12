@@ -113,12 +113,12 @@ class AnnouncementController extends Controller
         $announcement = Announcement::find($id);
         if (!$announcement) {
             $this->session->set('error', 'Announcement not found');
-            header('Location: /user/announcements');
+            header('Location: /admin/announcements');
             exit();
         }
 
         $companies = Company::all();
-        return $this->view('announcements/edit', [
+        return $this->view('admin/announcements/edit', [
             'announcement' => $announcement,
             'companies' => $companies
         ]);
