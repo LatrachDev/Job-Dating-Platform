@@ -1,8 +1,8 @@
 <?php 
-$currentPage = 'companies';
-include_once __DIR__ . '/../components/header.php';
-include_once __DIR__ . '/../components/navbar.php';
-include_once __DIR__ . '/../components/sidebar.php';
+    $currentPage = 'companies';
+    include_once __DIR__ . '/../components/header.php';
+    include_once __DIR__ . '/../components/navbar.php';
+    include_once __DIR__ . '/../components/sidebar.php';
 ?>
 
 <main class="ml-64 mt-16 p-6">
