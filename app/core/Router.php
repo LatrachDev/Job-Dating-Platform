@@ -10,6 +10,11 @@ class Router
 {
     private $dispatcher;
     protected $routes = [];
+    private $patterns = [
+        'id' => '[0-9]+',
+        'slug' => '[a-z0-9-]+',
+        'any' => '[^/]+'
+    ];
 
     public function __construct()
     {
@@ -51,6 +56,23 @@ class Router
         }
     }
 
+    private function matchRoute($requestUri, $routeUri)
+    {
+        // Convert route parameters to regex pattern
+        $pattern = preg_replace('/\{([a-zA-Z]+)\}/', '(?P<$1>[^/]+)', $routeUri);
+        $pattern = "@^" . $pattern . "$@D";
+        
+        $matches = [];
+        if (preg_match($pattern, $requestUri, $matches)) {
+            // Remove numeric keys
+            return array_filter($matches, function($key) {
+                return !is_numeric($key);
+            }, ARRAY_FILTER_USE_KEY);
+        }
+        
+        return false;
+    }
+
     public function dispatch($httpMethod, $uri)
     {
         if (empty($this->routes)) {
@@ -60,13 +82,13 @@ class Router
         $uri = rawurldecode(parse_url($uri, PHP_URL_PATH));
         
         foreach ($this->routes as $route) {
-            if ($route['method'] === $httpMethod && $route['uri'] === $uri) {
-                // Handle middleware if present
-                if (isset($route['middleware'])) {
-                    $this->handleMiddleware($route['middleware']);
-                }
+            if ($route['method'] !== $httpMethod) {
+                continue;
+            }
 
-                // Handle the route
+            $params = $this->matchRoute($uri, $route['uri']);
+            if ($params !== false) {
+                // Route matched
                 [$controller, $method] = explode('@', $route['handler']);
                 $controller = "App\\Controllers\\" . $controller;
                 
@@ -75,6 +97,12 @@ class Router
                 }
                 
                 $controllerInstance = new $controller();
+                
+                // If there are parameters, pass them to the method
+                if (!empty($params)) {
+                    return $controllerInstance->$method(...array_values($params));
+                }
+                
                 return $controllerInstance->$method();
             }
         }

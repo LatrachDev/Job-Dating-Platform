@@ -15,6 +15,14 @@ class Company extends Model
     ];
 
 
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::deleting(function($company) {
+            $company->announcements()->delete();
+        });
+    }
 
     // Relationship: A company has many announcements
     public function announcements()
