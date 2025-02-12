@@ -47,6 +47,7 @@ try {
             $table->timestamps();
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->softDeletes();
         });
         echo "\n✅ Announcements table created successfully!";
     }
