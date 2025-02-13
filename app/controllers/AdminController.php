@@ -7,6 +7,8 @@ use App\Models\Article;
 use App\Core\Auth;
 use App\Core\Session;
 use App\Core\Security;
+use App\Models\Company;
+use DateTime;
 
 class AdminController extends Controller
 {
@@ -16,6 +18,7 @@ class AdminController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->session = new Session();
         $this->security = new Security();
         $this->auth = new Auth($this->session, $this->security);
@@ -29,7 +32,52 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return $this->view('admin/dashboard');
+        $data = [
+            'currentPage' => 'dashboard',
+            'admin' => [
+                'name' => 'Admin Name'
+            ],
+            'stats' => [
+                [
+                    'title' => 'Total Entreprises',
+                    'value' => 12,
+                    'icon' => 'fa-building',
+                    'color' => 'text-blue-500'
+                ],
+                [
+                    'title' => 'Annonces Actives',
+                    'value' => 25,
+                    'icon' => 'fa-bullhorn',
+                    'color' => 'text-green-500'
+                ],
+                [
+                    'title' => 'Total Utilisateurs',
+                    'value' => 150,
+                    'icon' => 'fa-users',
+                    'color' => 'text-purple-500'
+                ]
+            ],
+            'activities' => [
+                [
+                    'date' => new DateTime(),
+                    'action' => 'Nouvelle entreprise ajoutée',
+                    'details' => 'Microsoft Maroc',
+                    'status' => [
+                        'label' => 'Complété',
+                        'color' => 'green'
+                    ]
+                ]
+                // Ajoutez d'autres activités ici
+            ]
+        ];
+
+        return $this->render('admin/dashboard.twig', $data);
+    }
+
+    public function companies()
+    {
+        $companies = Company::all();
+        return $this->view('admin/companies/companies', ['companies' => $companies]);
     }
 
     public function articles()
