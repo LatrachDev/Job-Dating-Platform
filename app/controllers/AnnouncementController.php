@@ -24,8 +24,8 @@ class AnnouncementController extends Controller
 
     public function index()
     {
-        // Get all announcements with their related companies
-        $announcements = Announcement::with('company')->get();
+        // Get all active announcements with their related companies, excluding soft deleted ones
+        $announcements = Announcement::with('company')->whereNull('deleted_at')->get();
         return $this->view('user/index', ['announcements' => $announcements]);
     }
 
@@ -49,8 +49,8 @@ class AnnouncementController extends Controller
             exit();
         }
 
-        // Get all announcements with their related companies
-        $announcements = Announcement::with('company')->get();
+        // Get all announcements with their related companies, excluding soft deleted ones
+        $announcements = Announcement::with('company')->whereNull('deleted_at')->get();
         return $this->view('admin/announcements/index', ['announcements' => $announcements]);
     }
 
@@ -181,6 +181,59 @@ class AnnouncementController extends Controller
         }
 
         header('Location: /admin/announcements');
+        exit();
+    }
+
+    // Add these new methods for managing trashed announcements
+    public function trashed()
+    {
+        if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin'])) {
+            $this->session->set('error', 'Unauthorized access');
+            header('Location: /admin/announcements');
+            exit();
+        }
+
+        $trashedAnnouncements = Announcement::onlyTrashed()->with('company')->get();
+        return $this->view('admin/announcements/trashed', ['announcements' => $trashedAnnouncements]);
+    }
+
+    public function restore($id)
+    {
+        if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin'])) {
+            $this->session->set('error', 'Unauthorized access');
+            header('Location: /admin/announcements');
+            exit();
+        }
+
+        $announcement = Announcement::withTrashed()->find($id);
+        if ($announcement) {
+            $announcement->restore();
+            $this->session->set('success', 'Announcement restored successfully');
+        } else {
+            $this->session->set('error', 'Announcement not found');
+        }
+
+        header('Location: /admin/announcements/trashed');
+        exit();
+    }
+
+    public function forceDelete($id)
+    {
+        if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin'])) {
+            $this->session->set('error', 'Unauthorized access');
+            header('Location: /admin/announcements');
+            exit();
+        }
+
+        $announcement = Announcement::withTrashed()->find($id);
+        if ($announcement) {
+            $announcement->forceDelete();
+            $this->session->set('success', 'Announcement permanently deleted');
+        } else {
+            $this->session->set('error', 'Announcement not found');
+        }
+
+        header('Location: /admin/announcements/trashed');
         exit();
     }
 }
