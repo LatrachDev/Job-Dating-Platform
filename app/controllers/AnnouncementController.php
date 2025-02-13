@@ -146,8 +146,9 @@ class AnnouncementController extends Controller
         $title = $_POST['title'] ?? '';
         $description = $_POST['description'] ?? '';
         $company_id = $_POST['company_id'] ?? null;
+        $thumbnail = $_POST['thumbnail'] ?? null;
 
-        if (empty($title) || empty($description) || empty($company_id)) {
+        if (empty($title) || empty($description) || empty($company_id || empty($thumbnail))) {
             $this->session->set('error', 'All fields are required');
             header("Location: /announcements/edit/$id");
             exit();
@@ -157,6 +158,7 @@ class AnnouncementController extends Controller
         $announcement->title = $title;
         $announcement->description = $description;
         $announcement->company_id = $company_id;
+        $announcement->thumbnail = $thumbnail;
         $announcement->save();
 
         $this->session->set('success', 'Announcement updated successfully');
