@@ -175,10 +175,19 @@ return [
         'uri' => '/admin/users',
         'handler' => 'Admin\UserManagementController@index'
     ],
-
     [
-        'method' => 'DELETE',
-        'uri' => '/admin/users/{id}',
+        'method' => 'GET',
+        'uri' => '/admin/users/edit/{id}',
+        'handler' => 'Admin\UserManagementController@edit'
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/admin/users/{id}/update',
+        'handler' => 'Admin\UserManagementController@update'
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/admin/users/delete/{id}',
         'handler' => 'Admin\UserManagementController@delete'
     ]
     
