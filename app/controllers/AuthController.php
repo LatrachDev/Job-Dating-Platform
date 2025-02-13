@@ -128,7 +128,7 @@ class AuthController extends Controller
     {
         $this->auth->logout();
         session_destroy();
-        header('Location: /login');
+        header('Location: /');
         exit();
     }
 }
