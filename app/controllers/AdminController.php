@@ -8,6 +8,8 @@ use App\Core\Auth;
 use App\Core\Session;
 use App\Core\Security;
 use App\Models\Company;
+use App\Models\Announcement;
+use App\Models\User;
 use DateTime;
 
 class AdminController extends Controller
@@ -32,6 +34,9 @@ class AdminController extends Controller
 
     public function dashboard()
     {
+        $companiesCount = Company::count();
+        $announcesCount = Announcement::count();
+        $usersCount = User::count();
         $data = [
             'currentPage' => 'dashboard',
             'admin' => [
@@ -40,19 +45,19 @@ class AdminController extends Controller
             'stats' => [
                 [
                     'title' => 'Total Entreprises',
-                    'value' => 12,
+                    'value' => $companiesCount,
                     'icon' => 'fa-building',
                     'color' => 'text-blue-500'
                 ],
                 [
                     'title' => 'Annonces Actives',
-                    'value' => 25,
+                    'value' => $announcesCount,
                     'icon' => 'fa-bullhorn',
                     'color' => 'text-green-500'
                 ],
                 [
                     'title' => 'Total Utilisateurs',
-                    'value' => 150,
+                    'value' => $usersCount,
                     'icon' => 'fa-users',
                     'color' => 'text-purple-500'
                 ]
