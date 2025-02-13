@@ -3,10 +3,18 @@
 namespace App\Controllers\Admin;
 
 use App\Core\Controller;
+use App\Core\Session;
 use App\Models\User;
 
 class UserManagementController extends Controller
 {
+    protected $session;
+
+    public function __construct()
+    {
+        $this->session = new Session();
+    }
+
     public function index()
     {
         // Récupérer la page courante depuis l'URL
@@ -36,30 +44,79 @@ class UserManagementController extends Controller
             ]
         ];
 
-        return $this->render('admin/UserManagement.twig', $data);
+        return $this->view('admin/users/index', $data);
+    }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+        
+        if (!$user) {
+            $this->session->set('error', 'Utilisateur non trouvé');
+            header('Location: /admin/users');
+            exit();
+        }
+
+        return $this->view('admin/users/edit', ['user' => $user]);
+    }
+
+    public function update($id)
+    {
+        $user = User::find($id);
+        
+        if (!$user) {
+            $this->session->set('error', 'Utilisateur non trouvé');
+            header('Location: /admin/users');
+            exit();
+        }
+
+        // Validate input
+        $name = $_POST['name'] ?? '';
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+
+        if (empty($name) || empty($email)) {
+            $this->session->set('error', 'Le nom et l\'email sont obligatoires');
+            header("Location: /admin/users/edit/$id");
+            exit();
+        }
+
+        // Update user
+        $user->name = $name;
+        $user->email = $email;
+        
+        // Only update password if provided
+        if (!empty($password)) {
+            $user->password = $password;
+        }
+
+        try {
+            $user->save();
+            $this->session->set('success', 'Utilisateur mis à jour avec succès');
+        } catch (\Exception $e) {
+            $this->session->set('error', 'Erreur lors de la mise à jour');
+        }
+
+        header('Location: /admin/users');
+        exit();
     }
 
     public function delete($id)
     {
-        try {
-            $user = User::findOrFail($id);
-            $user->delete();
-
-            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
-                return json_encode(['success' => true]);
+        $user = User::find($id);
+        
+        if ($user) {
+            try {
+                $user->delete();
+                $this->session->set('success', 'Utilisateur supprimé avec succès');
+            } catch (\Exception $e) {
+                $this->session->set('error', 'Erreur lors de la suppression');
             }
-
-            // Redirection avec message de succès
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-            exit;
-        } catch (\Exception $e) {
-            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
-                return json_encode(['success' => false, 'message' => $e->getMessage()]);
-            }
-
-            // Redirection avec message d'erreur
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-            exit;
+        } else {
+            $this->session->set('error', 'Utilisateur non trouvé');
         }
+
+        header('Location: /admin/users');
+        exit();
     }
 } 
