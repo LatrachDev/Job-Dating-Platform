@@ -35,13 +35,13 @@
                 <form action="/admin/announcements/store" method="POST" class="space-y-6 p-6">
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700">Titre de l'annonce</label>
-                        <input type="text" name="title" id="title" required
+                        <input type="text" name="title" id="title"
                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                     </div>
 
                     <div>
                         <label for="company_id" class="block text-sm font-medium text-gray-700">Entreprise</label>
-                        <select name="company_id" id="company_id" required
+                        <select name="company_id" id="company_id"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             <option value="">Sélectionnez une entreprise</option>
                             <?php foreach($companies as $company): ?>
@@ -52,8 +52,14 @@
 
                     <div>
                         <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea name="description" id="description" rows="4" required
+                        <textarea name="description" id="description" rows="4"
                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail (optionel)</label>
+                        <input type="text" name="thumbnail" id="thumbnail"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                     </div>
 
                     <div class="flex justify-end space-x-3">

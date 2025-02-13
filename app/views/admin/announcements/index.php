@@ -61,6 +61,9 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Thumbnail
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Nom
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -86,7 +89,30 @@
                         </tr>
                     <?php else: ?>
                         <?php foreach($announcements as $announcement): ?>
+
                             <tr class="hover:bg-gray-50">
+                                <?php if($announcement->thumbnail): ?>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full"
+                                                     src="<?= $announcement->thumbnail ?>"
+                                                     alt="">
+                                            </div>
+                                        </div>
+                                    </td>
+                                <?php else: ?>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full"
+                                                     src="https://ui-avatars.com/api/?name=<?= $announcement->company->name ?>"
+                                                     alt="">
+                                            </div>
+                                        </div>
+                                    </td>
+                                <?php endif; ?>
+
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="ml-4">
