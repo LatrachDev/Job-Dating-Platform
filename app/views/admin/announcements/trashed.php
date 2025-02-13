@@ -82,10 +82,10 @@
                                                 <i class="fas fa-undo"></i> Restaurer
                                             </button>
                                         </form>
-                                        <form action="/admin/announcements/<?= $announcement->id ?>/force-delete" 
+                                        <form action="/admin/announcements/force-delete/<?= $announcement->id ?>" 
                                               method="POST" 
                                               class="inline-block"
-                                              onsubmit="return confirm('Cette action est irréversible. Êtes-vous sûr?');">
+                                              onsubmit="return confirm('Cette action est irréversible. Êtes-vous sûr de vouloir supprimer définitivement cette annonce?');">
                                             <button type="submit" class="text-red-600 hover:text-red-900">
                                                 <i class="fas fa-trash"></i> Supprimer définitivement
                                             </button>
