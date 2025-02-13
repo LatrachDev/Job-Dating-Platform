@@ -119,6 +119,23 @@ return [
         'handler' => 'AnnouncementController@delete'
     ],
 
+    // Routes for trashed announcements
+    [
+        'method' => 'GET',
+        'uri' => '/admin/announcements/trashed',
+        'handler' => 'AnnouncementController@trashed'
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/admin/announcements/restore/{id}',
+        'handler' => 'AnnouncementController@restore'
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/admin/announcements/force-delete/{id}',
+        'handler' => 'AnnouncementController@forceDelete'
+    ],
+
     // User Routes
     [
         'method' => 'GET',
