@@ -184,31 +184,45 @@
                 $.ajax({
                     url: `/admin/announcements/delete/${id}`,
                     method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
                     success: function(response) {
-                        // Si la suppression est réussie
-                        if (response.success) {
-                            // Supprimer la ligne du tableau
-                            $(`tr[data-id="${id}"]`).fadeOut(400, function() {
-                                $(this).remove();
-                            });
+                        try {
+                            // Parse la réponse si elle n'est pas déjà un objet
+                            const result = typeof response === 'string' ? JSON.parse(response) : response;
                             
-                            // Afficher le message de succès
-                            const successAlert = `
-                                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 success-alert" role="alert">
-                                    <span class="block sm:inline">${response.message}</span>
-                                </div>
-                            `;
-                            $('.success-alert, .error-alert').remove();
-                            $('.ml-64.mt-16.p-6').prepend(successAlert);
-                            
-                            // Faire disparaître le message après 3 secondes
-                            setTimeout(() => {
-                                $('.success-alert').fadeOut();
-                            }, 3000);
+                            // Si la suppression est réussie
+                            if (result.success) {
+                                // Log pour déboguer
+                                console.log('Suppression réussie, ID:', id);
+                                console.log('Element à supprimer:', $(`tr[data-id="${id}"]`));
+                                
+                                // Supprimer la ligne du tableau
+                                $(`tr[data-id="${id}"]`).fadeOut(400, function() {
+                                    $(this).remove();
+                                });
+                                
+                                // Afficher le message de succès
+                                const successAlert = `
+                                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 success-alert" role="alert">
+                                        <span class="block sm:inline">${result.message}</span>
+                                    </div>
+                                `;
+                                $('.success-alert, .error-alert').remove();
+                                $('.ml-64.mt-16.p-6').prepend(successAlert);
+                                
+                                // Faire disparaître le message après 3 secondes
+                                setTimeout(() => {
+                                    $('.success-alert').fadeOut();
+                                }, 3000);
+                            }
+                        } catch (e) {
+                            console.error('Erreur lors du traitement de la réponse:', e);
                         }
                     },
                     error: function(xhr) {
-                        // En cas d'erreur
+                        console.error('Erreur Ajax:', xhr);
                         const errorAlert = `
                             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 error-alert" role="alert">
                                 <span class="block sm:inline">Une erreur est survenue lors de la suppression</span>
@@ -217,7 +231,6 @@
                         $('.success-alert, .error-alert').remove();
                         $('.ml-64.mt-16.p-6').prepend(errorAlert);
                         
-                        // Faire disparaître le message après 3 secondes
                         setTimeout(() => {
                             $('.error-alert').fadeOut();
                         }, 3000);
