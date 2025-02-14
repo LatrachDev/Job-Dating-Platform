@@ -5,6 +5,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Ajouter jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="bg-gray-50">
     <!-- Navigation bar -->
@@ -148,14 +150,10 @@
                                            class="text-indigo-600 hover:text-indigo-900">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="/admin/announcements/delete/<?= $announcement->id ?>" 
-                                              method="POST" 
-                                              class="inline-block"
-                                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce?');">
-                                            <button type="submit" class="text-red-600 hover:text-red-900">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        <button onclick="deleteAnnouncement(<?= $announcement->id ?>)" 
+                                                class="text-red-600 hover:text-red-900 delete-btn">
+                                            <i class="fas fa-trash"></i> Supprimer
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -181,6 +179,53 @@
                 });
             });
         });
+
+        function deleteAnnouncement(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette annonce?')) {
+                $.ajax({
+                    url: `/admin/announcements/delete/${id}`,
+                    method: 'POST',
+                    success: function(response) {
+                        // Si la suppression est réussie
+                        if (response.success) {
+                            // Supprimer la ligne du tableau
+                            $(`tr[data-id="${id}"]`).fadeOut(400, function() {
+                                $(this).remove();
+                            });
+                            
+                            // Afficher le message de succès
+                            const successAlert = `
+                                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 success-alert" role="alert">
+                                    <span class="block sm:inline">${response.message}</span>
+                                </div>
+                            `;
+                            $('.success-alert, .error-alert').remove();
+                            $('.ml-64.mt-16.p-6').prepend(successAlert);
+                            
+                            // Faire disparaître le message après 3 secondes
+                            setTimeout(() => {
+                                $('.success-alert').fadeOut();
+                            }, 3000);
+                        }
+                    },
+                    error: function(xhr) {
+                        // En cas d'erreur
+                        const errorAlert = `
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 error-alert" role="alert">
+                                <span class="block sm:inline">Une erreur est survenue lors de la suppression</span>
+                            </div>
+                        `;
+                        $('.success-alert, .error-alert').remove();
+                        $('.ml-64.mt-16.p-6').prepend(errorAlert);
+                        
+                        // Faire disparaître le message après 3 secondes
+                        setTimeout(() => {
+                            $('.error-alert').fadeOut();
+                        }, 3000);
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>
