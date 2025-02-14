@@ -26,7 +26,14 @@ class AnnouncementController extends Controller
     {
         // Get all active announcements with their related companies, excluding soft deleted ones
         $announcements = Announcement::with('company')->whereNull('deleted_at')->get();
-        return $this->view('user/index', ['announcements' => $announcements]);
+        
+        return $this->render('admin/announcements/index.twig', [
+            'announcements' => $announcements,
+            'session' => [
+                'success' => $this->session->get('success'),
+                'error' => $this->session->get('error')
+            ]
+        ]);
     }
 
     public function show($id)
