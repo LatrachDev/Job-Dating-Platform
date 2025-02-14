@@ -1,20 +1,37 @@
-{% extends "admin/layouts/base.twig" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion des Annonces</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Ajouter jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation bar -->
+    <?php include __DIR__ . '/../components/navbar.php'; ?>
+    
+    <!-- Sidebar -->
+    <?php include __DIR__ . '/../components/sidebar.php'; ?>
 
-{% block title %}Gestion des Annonces{% endblock %}
+    <div class="ml-64 mt-16 p-6"> 
 
-{% block content %}
-    <div class="ml-64 mt-16 p-6">
-        {% if session.success %}
+        <!--error and success messages-->
+        <?php if(isset($_SESSION['success'])): ?>
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <span class="block sm:inline">{{ session.success }}</span>
+                <span class="block sm:inline"><?= $_SESSION['success'] ?></span>
             </div>
-        {% endif %}
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
 
-        {% if session.error %}
+        <?php if(isset($_SESSION['error'])): ?>
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <span class="block sm:inline">{{ session.error }}</span>
+                <span class="block sm:inline"><?= $_SESSION['error'] ?></span>
             </div>
-        {% endif %}
+            <?php unset($_SESSION['error']); ?>
+
+        <?php endif; ?>
 
         <div class="flex justify-between items-center mb-6">
             <div>
@@ -22,7 +39,7 @@
                 <p class="mt-1 text-sm text-gray-600">Liste de toutes les annonces disponibles</p>
             </div>
             <a href="/admin/announcements/create" 
-               class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+               class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 <i class="fas fa-plus -ml-1 mr-2 h-5 w-5"></i>
                 Nouvelle Annonce
             </a>
@@ -66,43 +83,56 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    {% if announcements is empty %}
+                    <?php if(empty($announcements)): ?>
                         <tr>
                             <td colspan="5" class="px-6 py-4 text-center text-gray-500">
                                 Aucune annonce trouvée
                             </td>
                         </tr>
-                    {% else %}
-                        {% for announcement in announcements %}
-                            <tr data-id="{{ announcement.id }}" class="hover:bg-gray-50">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 h-10 w-10">
-                                            <img class="h-10 w-10 rounded-full"
-                                                 src="{{ announcement.thumbnail ?: 'https://ui-avatars.com/api/?name=' ~ announcement.company.name }}"
-                                                 alt="">
+                    <?php else: ?>
+                        <?php foreach($announcements as $announcement): ?>
+                            <tr data-id="<?= $announcement->id ?>" class="hover:bg-gray-50">
+                                <?php if($announcement->thumbnail): ?>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full"
+                                                     src="<?= $announcement->thumbnail ?>"
+                                                     alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                <?php else: ?>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full"
+                                                     src="https://ui-avatars.com/api/?name=<?= $announcement->company->name ?>"
+                                                     alt="">
+                                            </div>
+                                        </div>
+                                    </td>
+                                <?php endif; ?>
+
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
-                                                {{ announcement.title }}
+                                                <?= htmlspecialchars($announcement->title) ?>
                                             </div>
                                             <div class="text-sm text-gray-500">
-                                                {{ announcement.company.name }}
+                                                <?= htmlspecialchars($announcement->company->name) ?>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        {{ announcement.company.name }}
+                                        <?= htmlspecialchars($announcement->company->name) ?>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ announcement.description|slice(0, 50) }}...
+                                    <?= htmlspecialchars(substr($announcement->description, 0, 50)) ?>...
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -111,32 +141,32 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex space-x-3">
-                                        <a href="/announcements/{{ announcement.id }}" 
+                                        <a href="/announcements/<?= $announcement->id ?>" 
                                            class="text-blue-600 hover:text-blue-900">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="/admin/announcements/edit/{{ announcement.id }}" 
+                                        <a href="/admin/announcements/edit/<?= $announcement->id ?>" 
                                            class="text-indigo-600 hover:text-indigo-900">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button onclick="deleteAnnouncement({{ announcement.id }})" 
+                                        <button onclick="deleteAnnouncement(<?= $announcement->id ?>)" 
                                                 class="text-red-600 hover:text-red-900 delete-btn">
                                             <i class="fas fa-trash"></i> Supprimer
                                         </button>
                                     </div>
                                 </td>
                             </tr>
-                        {% endfor %}
-                    {% endif %}
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
     </div>
-{% endblock %}
 
-{% block scripts %}
     <script>
+        // Add any JavaScript functionality here
         document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
             const searchInput = document.querySelector('input[type="text"]');
             searchInput.addEventListener('input', function(e) {
                 const searchTerm = e.target.value.toLowerCase();
@@ -159,13 +189,21 @@
                     },
                     success: function(response) {
                         try {
+                            // Parse la réponse si elle n'est pas déjà un objet
                             const result = typeof response === 'string' ? JSON.parse(response) : response;
                             
+                            // Si la suppression est réussie
                             if (result.success) {
+                                // Log pour déboguer
+                                console.log('Suppression réussie, ID:', id);
+                                console.log('Element à supprimer:', $(`tr[data-id="${id}"]`));
+                                
+                                // Supprimer la ligne du tableau
                                 $(`tr[data-id="${id}"]`).fadeOut(400, function() {
                                     $(this).remove();
                                 });
                                 
+                                // Afficher le message de succès
                                 const successAlert = `
                                     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 success-alert" role="alert">
                                         <span class="block sm:inline">${result.message}</span>
@@ -174,6 +212,7 @@
                                 $('.success-alert, .error-alert').remove();
                                 $('.ml-64.mt-16.p-6').prepend(successAlert);
                                 
+                                // Faire disparaître le message après 3 secondes
                                 setTimeout(() => {
                                     $('.success-alert').fadeOut();
                                 }, 3000);
@@ -200,4 +239,5 @@
             }
         }
     </script>
-{% endblock %} 
+</body>
+</html>

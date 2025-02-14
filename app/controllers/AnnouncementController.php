@@ -120,9 +120,12 @@ class AnnouncementController extends Controller
         }
 
         $companies = Company::all();
-        return $this->view('admin/announcements/edit', [
+        return $this->render('admin/announcements/edit.twig', [
             'announcement' => $announcement,
-            'companies' => $companies
+            'companies' => $companies,
+            'session' => [
+                'error' => $this->session->get('error')
+            ]
         ]);
     }
 
