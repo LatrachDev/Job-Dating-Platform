@@ -91,8 +91,7 @@
                         </tr>
                     <?php else: ?>
                         <?php foreach($announcements as $announcement): ?>
-
-                            <tr class="hover:bg-gray-50">
+                            <tr data-id="<?= $announcement->id ?>" class="hover:bg-gray-50">
                                 <?php if($announcement->thumbnail): ?>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">

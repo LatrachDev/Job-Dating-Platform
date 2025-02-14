@@ -170,6 +170,11 @@ class AnnouncementController extends Controller
     {
         // Only admin or company users can delete announcements
         if (!$this->auth->check() || !in_array($this->auth->user()->role, ['admin', 'company'])) {
+            if ($this->isAjaxRequest()) {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'message' => 'Unauthorized access']);
+                exit();
+            }
             $this->session->set('error', 'Unauthorized access');
             header('Location: /admin/announcements');
             exit();
@@ -177,15 +182,46 @@ class AnnouncementController extends Controller
 
         $announcement = Announcement::find($id);
         if ($announcement) {
-            // The delete() method will now perform a soft delete
-            $announcement->delete();
-            $this->session->set('success', 'Announcement deleted successfully');
+            try {
+                // The delete() method will now perform a soft delete
+                $announcement->delete();
+                
+                if ($this->isAjaxRequest()) {
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'Annonce supprimée avec succès'
+                    ]);
+                    exit();
+                }
+                
+                $this->session->set('success', 'Announcement deleted successfully');
+            } catch (\Exception $e) {
+                if ($this->isAjaxRequest()) {
+                    http_response_code(500);
+                    echo json_encode([
+                        'success' => false,
+                        'message' => 'Erreur lors de la suppression'
+                    ]);
+                    exit();
+                }
+                $this->session->set('error', 'Error deleting announcement');
+            }
         } else {
+            if ($this->isAjaxRequest()) {
+                http_response_code(404);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Annonce non trouvée'
+                ]);
+                exit();
+            }
             $this->session->set('error', 'Announcement not found');
         }
 
-        header('Location: /admin/announcements');
-        exit();
+        if (!$this->isAjaxRequest()) {
+            header('Location: /admin/announcements');
+            exit();
+        }
     }
 
     // Add these new methods for managing trashed announcements
@@ -239,5 +275,12 @@ class AnnouncementController extends Controller
 
         header('Location: /admin/announcements/trashed');
         exit();
+    }
+
+    // Ajouter cette méthode helper dans le contrôleur
+    private function isAjaxRequest(): bool
+    {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+               strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
     }
 }
