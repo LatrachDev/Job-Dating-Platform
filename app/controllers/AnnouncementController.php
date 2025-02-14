@@ -66,7 +66,12 @@ class AnnouncementController extends Controller
         // Get all companies for the dropdown
         $companies = Company::all();
         
-        return $this->view('admin/announcements/create', ['companies' => $companies]);
+        return $this->render('admin/announcements/create.twig', [
+            'companies' => $companies,
+            'session' => [
+                'error' => $this->session->get('error')
+            ]
+        ]);
     }
 
     public function store()
