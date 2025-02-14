@@ -249,7 +249,14 @@ class AnnouncementController extends Controller
         }
 
         $trashedAnnouncements = Announcement::onlyTrashed()->with('company')->get();
-        return $this->view('admin/announcements/trashed', ['announcements' => $trashedAnnouncements]);
+        
+        return $this->render('admin/announcements/trashed.twig', [
+            'announcements' => $trashedAnnouncements,
+            'session' => [
+                'success' => $this->session->get('success'),
+                'error' => $this->session->get('error')
+            ]
+        ]);
     }
 
     public function restore($id)

@@ -1,25 +1,31 @@
-<aside class="fixed left-0 top-16 h-full w-64 bg-gray-800 text-white">
-    <div class="p-4">
-        <nav class="space-y-2">
+<aside class="fixed inset-y-0 left-0 bg-gray-800 w-64 mt-16">
+    <div class="flex flex-col h-full">
+        <nav class="flex-1 px-2 py-4 space-y-1">
             <a href="{{ path('admin_dashboard') }}" 
-               class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 {{ currentPage == 'dashboard' ? 'bg-blue-600' : '' }}">
-                <i class="fas fa-tachometer-alt"></i>
-                <span>Tableau de bord</span>
+               class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                <i class="fas fa-home mr-3"></i> Dashboard
             </a>
-            <a href="{{ path('admin_companies') }}" 
-               class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 {{ currentPage == 'companies' ? 'bg-blue-600' : '' }}">
-                <i class="fas fa-building"></i>
-                <span>Entreprises</span>
-            </a>
-            <a href="{{ path('admin_announcements') }}" 
-               class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 {{ currentPage == 'announcements' ? 'bg-blue-600' : '' }}">
-                <i class="fas fa-bullhorn"></i>
-                <span>Annonces</span>
-            </a>
+            
+            <!-- Announcements Dropdown -->
+            <div class="space-y-1">
+                <a href="{{ path('admin_announcements') }}" 
+                   class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                    <i class="fas fa-bullhorn mr-3"></i> Annonces
+                </a>
+                <a href="{{ path('admin_announcements') }}/trashed" 
+                   class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center pl-8 py-2 text-sm font-medium rounded-md">
+                    <i class="fas fa-trash mr-3"></i> Corbeille
+                </a>
+            </div>
+
             <a href="{{ path('admin_users') }}" 
-               class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700 {{ currentPage == 'users' ? 'bg-blue-600' : '' }}">
-                <i class="fas fa-users"></i>
-                <span>Utilisateurs</span>
+               class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                <i class="fas fa-users mr-3"></i> Utilisateurs
+            </a>
+            
+            <a href="{{ path('admin_companies') }}" 
+               class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                <i class="fas fa-building mr-3"></i> Entreprises
             </a>
         </nav>
     </div>
